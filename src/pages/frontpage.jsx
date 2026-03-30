@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/frontapage/navbar';
+import Navbar from '../components/frontapage/Navbar';
 import Home from '../components/frontapage/home';
 import AboutHome from '../components/frontapage/abouthome';
 import OurServices from '../components/frontapage/oursvhome';
