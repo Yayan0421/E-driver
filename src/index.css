@@ -1,0 +1,30 @@
+@import "./assets/fonts1/WEB/css/satoshi.css";
+@import "./assets/Fonts2/WEB/css/ranade.css";
+@import "./assets/Fonts3/WEB/css/telma.css";
+@import "./assets/Fonts5/WEB/css/neco.css";
+@import "tailwindcss";
+
+/* Global Styles */
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Smooth scroll for anchor navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Local fonts */
+body {
+  font-family: 'Satoshi-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Ranade-Bold', sans-serif;
+  font-weight: 900;
+}
+
