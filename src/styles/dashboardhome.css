@@ -339,14 +339,86 @@
 @media (max-width: 480px) {
   .dashboard-main {
     margin-left: 0;
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .dashboard-content h1 {
     font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .dashboard-content > p {
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
   }
 
   .dashboard-cards {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .card {
+    padding: 0.75rem;
+  }
+
+  .card-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card h3 {
+    font-size: 0.9rem;
+  }
+
+  .card p {
+    font-size: 0.75rem;
+  }
+
+  .map-container {
+    height: 50vh;
+    min-height: 250px;
+    margin: 0 auto 1rem auto;
+  }
+
+  .map-toolbar {
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .btn-locate {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .loc-info {
+    font-size: 0.8rem;
+  }
+
+  .bookings-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .booking-card {
+    padding: 0.75rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .booking-info strong {
+    font-size: 0.9rem;
+  }
+
+  .booking-time,
+  .booking-address {
+    font-size: 0.8rem;
+  }
+
+  .booking-actions .btn-view {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
   }
 }
