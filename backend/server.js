@@ -57,20 +57,39 @@ app.post('/driver-application', async (req, res) => {
 
   if (supabase) {
     try {
-        // normalize keys to snake_case to match typical DB column naming
-        const toSnake = (str) => str.replace(/([A-Z])/g, '_$1').toLowerCase();
-        const convertKeysToSnake = (obj) => {
-          if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) return obj;
-          return Object.keys(obj).reduce((acc, key) => {
-            const snakeKey = toSnake(key);
-            const val = obj[key];
-            acc[snakeKey] = convertKeysToSnake(val);
-            return acc;
-          }, {});
+        // Map camelCase payload to snake_case database columns matching the schema
+        const insertObj = {
+          full_name: application.fullName,
+          date_of_birth: application.dateOfBirth,
+          email: application.email,
+          phone: application.phone,
+          address: application.address,
+          id_type: application.idType,
+          id_number: application.idNumber,
+          vehicle_type: application.vehicleType,
+          vehicle_brand: application.vehicleBrand,
+          vehicle_model: application.vehicleModel,
+          vehicle_year: application.vehicleYear,
+          license_plate: application.licensePlate,
+          vehicle_color: application.vehicleColor,
+          insurance_company: application.insuranceCompany,
+          insurance_number: application.insuranceNumber,
+          license_number: application.licenseNumber,
+          license_expiry: application.licenseExpiry,
+          driving_experience: application.drivingExperience,
+          emergency_contact_name: application.emergencyContactName,
+          emergency_contact_phone: application.emergencyContactPhone,
+          violations: application.violations,
+          selfie_image: application.selfieImage,
+          accept_terms: application.acceptTerms,
+          created_at: new Date().toISOString()
         };
 
-        const insertObj = convertKeysToSnake(Object.assign({}, application, { created_at: new Date().toISOString() }));
-        
+        // Remove undefined values
+        Object.keys(insertObj).forEach(key => insertObj[key] === undefined && delete insertObj[key]);
+
+        console.log('Inserting driver application with fields:', Object.keys(insertObj));
+
         // Save to driver_applications table
         const { data, error } = await supabase
           .from('driver_applications')
@@ -95,6 +114,9 @@ app.post('/driver-application', async (req, res) => {
             license_number: application.licenseNumber,
             updated_at: new Date().toISOString()
           };
+
+          // Remove undefined values
+          Object.keys(userUpdateObj).forEach(key => userUpdateObj[key] === undefined && delete userUpdateObj[key]);
 
           const { error: updateError } = await supabase
             .from('users')
@@ -285,32 +307,63 @@ app.put('/profile', async (req, res) => {
   if (!email) return res.status(400).json({ error: 'Missing email in payload' });
 
   try {
-    // convert camelCase payload to snake_case for DB
-    const toSnake = (str) => str.replace(/([A-Z])/g, '_$1').toLowerCase();
-    const convertKeysToSnake = (obj) => {
-      if (obj === null || typeof obj !== 'object' || Array.isArray(obj)) return obj;
-      return Object.keys(obj).reduce((acc, key) => {
-        const snakeKey = toSnake(key);
-        acc[snakeKey] = convertKeysToSnake(obj[key]);
-        return acc;
-      }, {});
+    // Map camelCase payload fields to snake_case database columns for driver_applications
+    const updateObj = {
+      full_name: payload.fullName,
+      date_of_birth: payload.dateOfBirth,
+      phone: payload.phone,
+      address: payload.address,
+      id_type: payload.idType,
+      id_number: payload.idNumber,
+      vehicle_type: payload.vehicleType,
+      vehicle_brand: payload.vehicleBrand,
+      vehicle_model: payload.vehicleModel,
+      vehicle_year: payload.vehicleYear,
+      license_plate: payload.licensePlate,
+      vehicle_color: payload.vehicleColor,
+      insurance_company: payload.insuranceCompany,
+      insurance_number: payload.insuranceNumber,
+      license_number: payload.licenseNumber,
+      license_expiry: payload.licenseExpiry,
+      driving_experience: payload.drivingExperience,
+      emergency_contact_name: payload.emergencyContactName,
+      emergency_contact_phone: payload.emergencyContactPhone,
+      violations: payload.violations,
+      selfie_image: payload.selfieImage,
+      accept_terms: payload.acceptTerms
     };
 
-    const updateObj = convertKeysToSnake(payload);
-    // remove id if present
-    delete updateObj.id;
+    // Remove undefined values
+    Object.keys(updateObj).forEach(key => updateObj[key] === undefined && delete updateObj[key]);
 
-    // Try to update driver_applications
+    console.log('Updating driver_applications with:', Object.keys(updateObj));
+
+    // Update driver_applications table
     const { data, error } = await supabase
       .from('driver_applications')
       .update(updateObj)
       .eq('email', email)
-      .select()
-      .limit(1);
+      .select();
 
     if (error) {
       console.error('Supabase update error (driver_applications):', error);
-      return res.status(500).json({ error: 'Database update error' });
+      // If table doesn't have the row, try insert instead
+      if (error.code === 'PGRST204') {
+        console.log('No existing driver_applications record, creating new one');
+        const insertObj = { ...updateObj, email, created_at: new Date().toISOString() };
+        const { data: insertData, error: insertError } = await supabase
+          .from('driver_applications')
+          .insert([insertObj])
+          .select();
+        
+        if (insertError) {
+          return res.status(500).json({ error: 'Failed to save profile data' });
+        }
+        
+        // Continue to update users table
+      } else {
+        return res.status(500).json({ error: 'Database update error' });
+      }
     }
 
     // Also update users table so profile always loads with latest data
@@ -337,11 +390,12 @@ app.put('/profile', async (req, res) => {
 
     if (userError) {
       console.warn('Warning: Could not update users table:', userError);
+      // Only warn, don't fail the request
     } else {
       console.log('Successfully synced profile updates to users table');
     }
 
-    const updated = data && data[0] ? convertKeysToCamel(data[0]) : payload;
+    const updated = data && data[0] ? data[0] : updateObj;
     return res.json(updated);
   } catch (err) {
     console.error('Profile update error:', err);
