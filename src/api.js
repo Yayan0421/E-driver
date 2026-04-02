@@ -196,6 +196,13 @@ export function saveAuth(user, token) {
   localStorage.setItem('token', token);
 }
 
+export async function submitDriverApplication(applicationData) {
+  return request('/driver-application', {
+    method: 'POST',
+    body: JSON.stringify(applicationData)
+  });
+}
+
 export function clearAuth() {
   localStorage.removeItem('user');
   localStorage.removeItem('token');

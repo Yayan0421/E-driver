@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { submitDriverApplication } from '../../api';
 import '../../styles/driverform.css';
 import Swal from 'sweetalert2';
 
@@ -157,13 +158,8 @@ const DriverForm = () => {
     // Save driver data to backend which inserts into Supabase
     const driverData = { ...formData, selfieImage };
     try {
-      const response = await fetch('http://localhost:3001/driver-application', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(driverData)
-      });
-      const json = await response.json();
-      if (response.ok && json && json.success) {
+      const json = await submitDriverApplication(driverData);
+      if (json && json.success) {
         await Swal.fire({
           title: 'Application Submitted',
           text: 'Your driver application was submitted successfully.',
