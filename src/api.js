@@ -229,4 +229,4 @@ export async function getSupportTickets() {
   }
 }
 
-export default { signup, login, getBookings, createBooking, getProfile, updateProfile, getConversations, getMessages, sendMessage, getRideHistory, acceptBooking, rejectBooking, completeBooking, cancelBooking, getTransactions, createSupportTicket, getSupportTickets, saveAuth, clearAuth };
+export default { signup, login, getBookings, createBooking, getProfile, updateProfile, getConversations, getMessages, sendMessage, getRideHistory, acceptBooking, rejectBooking, completeBooking, cancelBooking, getTransactions, createSupportTicket, getSupportTickets, submitDriverApplication, saveAuth, clearAuth };
