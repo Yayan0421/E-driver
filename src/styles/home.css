@@ -3,11 +3,11 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .home-container {
   min-height: 100vh;
   background-color: #f0fdf4;
   padding: 2rem;
- 
 }
 
 .home-content {
@@ -18,7 +18,6 @@ body {
   justify-content: space-between;
   gap: 3rem;
   margin-top: 2rem;
- 
 }
 
 /* Left Content Section */
@@ -33,7 +32,6 @@ body {
   margin-bottom: 0.5rem;
   line-height: 1.2;
   font-family: 'Neco Bold', sans-serif;
-  margin-left: -10rem;
 }
 
 .home-left h1:nth-of-type(2) {
@@ -46,7 +44,6 @@ body {
   color: #16a34a;
   margin-bottom: 2rem;
   font-family: 'neco-bold', sans-serif;
-  margin-left: -10rem;
 }
 
 .home-description {
@@ -55,14 +52,11 @@ body {
   margin-bottom: 2rem;
   line-height: 1.6;
   max-width: 40rem;
-  margin-left: -10rem;
 }
 
 .home-buttons {
   display: flex;
   gap: 1rem;
-  margin-left: -10rem;
-
 }
 
 .btn {
@@ -73,6 +67,10 @@ body {
   cursor: pointer;
   font-size: 1.5rem;
   transition: all 0.3s ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-primary {
@@ -100,7 +98,7 @@ body {
   display: flex;
   gap: 1.5rem;
   justify-content: center;
-  margin-right: -15rem;
+  flex-wrap: wrap;
 }
 
 .card {
@@ -113,7 +111,6 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 8rem;
- 
 }
 
 .angkas {
@@ -123,35 +120,168 @@ body {
   border-radius: 1.5rem;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .home-content {
-    flex-direction: column;
-    gap: 2rem;
+/* Tablet Responsive Design */
+@media (max-width: 1024px) {
+  .home-container {
+    padding: 1.5rem;
   }
 
   .home-left h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .home-left h2 {
-    font-size: 1.5rem;
+    font-size: 2.25rem;
+  }
+
+  .home-description {
+    font-size: 1.3rem;
+  }
+
+  .btn {
+    padding: 0.7rem 1.8rem;
+    font-size: 1.2rem;
+  }
+
+  .card {
+    width: 13rem;
+    height: 13rem;
+    font-size: 7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 1rem;
+    min-height: auto;
+  }
+
+  .home-content {
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1rem;
   }
 
   .home-left {
     text-align: center;
   }
 
-  .home-buttons {
-    justify-content: center;
+  .home-left h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
   }
 
-  .home-right {
-    flex-wrap: wrap;
+  .home-left h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .home-description {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .home-buttons {
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.95rem;
   }
 
   .card {
-    width: 10rem;
-    height: 10rem;
+    width: 12rem;
+    height: 12rem;
+    font-size: 5rem;
+  }
+
+  .home-right {
+    width: 100%;
+    gap: 1rem;
+  }
+}
+
+/* Phone Responsive Design */
+@media (max-width: 480px) {
+  .home-container {
+    padding: 0.75rem;
+    background-color: #f0fdf4;
+  }
+
+  .home-content {
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .home-left h1 {
+    font-size: 1.3rem;
+    margin-bottom: 0.2rem;
+    line-height: 1.1;
+  }
+
+  .home-left h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .home-description {
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.4;
+    max-width: 100%;
+  }
+
+  .home-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  .card {
+    width: 9rem;
+    height: 9rem;
+    font-size: 3.5rem;
+    border-width: 3px;
+  }
+
+  .home-right {
+    gap: 0.75rem;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 380px) {
+  .home-left h1 {
+    font-size: 1.1rem;
+  }
+
+  .home-left h2 {
+    font-size: 0.95rem;
+  }
+
+  .home-description {
+    font-size: 0.75rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .btn {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .card {
+    width: 8rem;
+    height: 8rem;
+    font-size: 3rem;
   }
 }
