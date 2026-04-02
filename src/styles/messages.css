@@ -429,8 +429,7 @@
   }
 
   .messages-container {
-  .messages-wrapper {
-    margin-left: 0;
+    font-size: 0.85rem;
   }
 
   .conversations-panel {
