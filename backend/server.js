@@ -70,16 +70,46 @@ app.post('/driver-application', async (req, res) => {
         };
 
         const insertObj = convertKeysToSnake(Object.assign({}, application, { created_at: new Date().toISOString() }));
+        
+        // Save to driver_applications table
         const { data, error } = await supabase
           .from('driver_applications')
           .insert([insertObj]);
 
-      if (error) {
-        console.error('Supabase insert error (driver_application):', error);
-        return res.status(500).json({ message: 'Application received but failed to save to Supabase', error: error.message });
-      }
+        if (error) {
+          console.error('Supabase insert error (driver_application):', error);
+          return res.status(500).json({ message: 'Application received but failed to save to Supabase', error: error.message });
+        }
 
-      return res.json({ success: true, data });
+        // Also update the users table with driver application data so profile queries work
+        if (application.email) {
+          const userUpdateObj = {
+            full_name: application.fullName,
+            phone: application.phone,
+            address: application.address,
+            date_of_birth: application.dateOfBirth,
+            vehicle_type: application.vehicleType,
+            vehicle_brand: application.vehicleBrand,
+            vehicle_model: application.vehicleModel,
+            license_plate: application.licensePlate,
+            license_number: application.licenseNumber,
+            updated_at: new Date().toISOString()
+          };
+
+          const { error: updateError } = await supabase
+            .from('users')
+            .update(userUpdateObj)
+            .eq('email', application.email);
+
+          if (updateError) {
+            console.warn('Warning: Could not update users table:', updateError);
+            // Don't fail the response, driver_applications was saved successfully
+          } else {
+            console.log('Successfully synced driver data to users table for', application.email);
+          }
+        }
+
+        return res.json({ success: true, data });
     } catch (err) {
       console.error('Supabase error (driver_application):', err);
       return res.status(500).json({ message: 'Application received but Supabase error', error: err.message });
@@ -186,7 +216,7 @@ const convertKeysToCamel = (obj) => {
   }, {});
 };
 
-// GET profile by email query param (returns latest driver_application)
+// GET profile by email query param (returns driver_application or merged user data)
 app.get('/profile', async (req, res) => {
   const email = req.query.email || (req.query && req.query.email);
   console.log('GET /profile for', email);
@@ -197,7 +227,7 @@ app.get('/profile', async (req, res) => {
       return res.status(400).json({ error: 'Missing email query parameter' });
     }
 
-    // First try driver_applications table
+    // First try driver_applications table (most complete data)
     const { data: appData, error: appError } = await supabase
       .from('driver_applications')
       .select('*')
@@ -212,9 +242,8 @@ app.get('/profile', async (req, res) => {
     if (appData && appData.length > 0) {
       console.log('Found driver application for', email);
       const row = appData[0];
-      console.log('Raw driver application data:', JSON.stringify(row, null, 2));
+      console.log('Driver application data:', JSON.stringify(row, null, 2));
       const camel = convertKeysToCamel(row);
-      console.log('Converted to camelCase:', JSON.stringify(camel, null, 2));
       return res.json(camel);
     }
 
@@ -233,11 +262,9 @@ app.get('/profile', async (req, res) => {
     if (userData && userData.length > 0) {
       console.log('Found user profile for', email);
       const row = userData[0];
-      console.log('Raw user data:', JSON.stringify(row, null, 2));
+      console.log('User data:', JSON.stringify(row, null, 2));
       const camel = convertKeysToCamel(row);
       console.log('Converted to camelCase:', JSON.stringify(camel, null, 2));
-      
-      // If coming from users table, return basic data (ask user to complete driver app)
       return res.json(camel);
     }
 
