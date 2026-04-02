@@ -192,57 +192,61 @@ const Profile = () => {
                 <div className="info-card">
                   <label>Full Name</label>
                   {editMode ? (
-                    <input value={editableProfile?.fullName || ''} onChange={(e) => handleFieldChange('fullName', e.target.value)} />
+                    <input type="text" placeholder="Enter full name" value={editableProfile?.fullName || ''} onChange={(e) => handleFieldChange('fullName', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.fullName}</p>
+                    <p>{driverProfile.fullName || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>Date of Birth</label>
                   {editMode ? (
-                    <input value={editableProfile?.dateOfBirth || ''} onChange={(e) => handleFieldChange('dateOfBirth', e.target.value)} />
+                    <input type="date" value={editableProfile?.dateOfBirth || ''} onChange={(e) => handleFieldChange('dateOfBirth', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.dateOfBirth}</p>
+                    <p>{driverProfile.dateOfBirth || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>Email</label>
                   {editMode ? (
-                    <input value={editableProfile?.email || ''} onChange={(e) => handleFieldChange('email', e.target.value)} />
+                    <input type="email" value={editableProfile?.email || ''} onChange={(e) => handleFieldChange('email', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.email}</p>
+                    <p>{driverProfile.email || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>Phone</label>
                   {editMode ? (
-                    <input value={editableProfile?.phone || ''} onChange={(e) => handleFieldChange('phone', e.target.value)} />
+                    <input type="tel" placeholder="+63 9XX XXX XXXX" value={editableProfile?.phone || ''} onChange={(e) => handleFieldChange('phone', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.phone}</p>
+                    <p>{driverProfile.phone || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card full-width">
                   <label>Address</label>
                   {editMode ? (
-                    <input value={editableProfile?.address || ''} onChange={(e) => handleFieldChange('address', e.target.value)} />
+                    <input type="text" placeholder="Your residential address" value={editableProfile?.address || ''} onChange={(e) => handleFieldChange('address', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.address}</p>
+                    <p>{driverProfile.address || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>ID Type</label>
                   {editMode ? (
-                    <input value={editableProfile?.idType || ''} onChange={(e) => handleFieldChange('idType', e.target.value)} />
+                    <select value={editableProfile?.idType || 'national-id'} onChange={(e) => handleFieldChange('idType', e.target.value)}>
+                      <option value="national-id">National ID</option>
+                      <option value="passport">Passport</option>
+                      <option value="license">Driver's License</option>
+                    </select>
                   ) : (
-                    <p>{driverProfile.idType}</p>
+                    <p>{driverProfile.idType || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>ID Number</label>
                   {editMode ? (
-                    <input value={editableProfile?.idNumber || ''} onChange={(e) => handleFieldChange('idNumber', e.target.value)} />
+                    <input type="text" placeholder="Enter ID number" value={editableProfile?.idNumber || ''} onChange={(e) => handleFieldChange('idNumber', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.idNumber}</p>
+                    <p>{driverProfile.idNumber || 'Not provided'}</p>
                   )}
                 </div>
               </div>
@@ -257,65 +261,69 @@ const Profile = () => {
                 <div className="info-card">
                   <label>Vehicle Type</label>
                   {editMode ? (
-                    <input value={editableProfile?.vehicleType || ''} onChange={(e) => handleFieldChange('vehicleType', e.target.value)} />
+                    <select value={editableProfile?.vehicleType || 'motorcycle'} onChange={(e) => handleFieldChange('vehicleType', e.target.value)}>
+                      <option value="motorcycle">Motorcycle</option>
+                      <option value="car">Car</option>
+                      <option value="van">Van</option>
+                    </select>
                   ) : (
-                    <p>{driverProfile.vehicleType}</p>
+                    <p>{driverProfile.vehicleType || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>Brand</label>
                   {editMode ? (
-                    <input value={editableProfile?.vehicleBrand || ''} onChange={(e) => handleFieldChange('vehicleBrand', e.target.value)} />
+                    <input type="text" placeholder="Vehicle brand" value={editableProfile?.vehicleBrand || ''} onChange={(e) => handleFieldChange('vehicleBrand', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.vehicleBrand}</p>
+                    <p>{driverProfile.vehicleBrand || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>Model</label>
                   {editMode ? (
-                    <input value={editableProfile?.vehicleModel || ''} onChange={(e) => handleFieldChange('vehicleModel', e.target.value)} />
+                    <input type="text" placeholder="Vehicle model" value={editableProfile?.vehicleModel || ''} onChange={(e) => handleFieldChange('vehicleModel', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.vehicleModel}</p>
+                    <p>{driverProfile.vehicleModel || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>Year</label>
                   {editMode ? (
-                    <input value={editableProfile?.vehicleYear || ''} onChange={(e) => handleFieldChange('vehicleYear', e.target.value)} />
+                    <input type="text" placeholder="YYYY" value={editableProfile?.vehicleYear || ''} onChange={(e) => handleFieldChange('vehicleYear', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.vehicleYear}</p>
+                    <p>{driverProfile.vehicleYear || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>License Plate</label>
                   {editMode ? (
-                    <input value={editableProfile?.licensePlate || ''} onChange={(e) => handleFieldChange('licensePlate', e.target.value)} />
+                    <input type="text" placeholder="License plate" value={editableProfile?.licensePlate || ''} onChange={(e) => handleFieldChange('licensePlate', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.licensePlate}</p>
+                    <p>{driverProfile.licensePlate || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>Color</label>
                   {editMode ? (
-                    <input value={editableProfile?.vehicleColor || ''} onChange={(e) => handleFieldChange('vehicleColor', e.target.value)} />
+                    <input type="text" placeholder="Vehicle color" value={editableProfile?.vehicleColor || ''} onChange={(e) => handleFieldChange('vehicleColor', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.vehicleColor}</p>
+                    <p>{driverProfile.vehicleColor || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>Insurance Company</label>
                   {editMode ? (
-                    <input value={editableProfile?.insuranceCompany || ''} onChange={(e) => handleFieldChange('insuranceCompany', e.target.value)} />
+                    <input type="text" placeholder="Insurance company name" value={editableProfile?.insuranceCompany || ''} onChange={(e) => handleFieldChange('insuranceCompany', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.insuranceCompany}</p>
+                    <p>{driverProfile.insuranceCompany || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>Insurance Number</label>
                   {editMode ? (
-                    <input value={editableProfile?.insuranceNumber || ''} onChange={(e) => handleFieldChange('insuranceNumber', e.target.value)} />
+                    <input type="text" placeholder="Insurance policy number" value={editableProfile?.insuranceNumber || ''} onChange={(e) => handleFieldChange('insuranceNumber', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.insuranceNumber}</p>
+                    <p>{driverProfile.insuranceNumber || 'Not provided'}</p>
                   )}
                 </div>
               </div>
@@ -330,25 +338,25 @@ const Profile = () => {
                 <div className="info-card">
                   <label>License Number</label>
                   {editMode ? (
-                    <input value={editableProfile?.licenseNumber || ''} onChange={(e) => handleFieldChange('licenseNumber', e.target.value)} />
+                    <input type="text" placeholder="License number" value={editableProfile?.licenseNumber || ''} onChange={(e) => handleFieldChange('licenseNumber', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.licenseNumber}</p>
+                    <p>{driverProfile.licenseNumber || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>License Expiry</label>
                   {editMode ? (
-                    <input value={editableProfile?.licenseExpiry || ''} onChange={(e) => handleFieldChange('licenseExpiry', e.target.value)} />
+                    <input type="date" value={editableProfile?.licenseExpiry || ''} onChange={(e) => handleFieldChange('licenseExpiry', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.licenseExpiry}</p>
+                    <p>{driverProfile.licenseExpiry || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card full-width">
                   <label>Driving Experience</label>
                   {editMode ? (
-                    <input value={editableProfile?.drivingExperience || ''} onChange={(e) => handleFieldChange('drivingExperience', e.target.value)} />
+                    <input type="text" placeholder="e.g., 5 years" value={editableProfile?.drivingExperience || ''} onChange={(e) => handleFieldChange('drivingExperience', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.drivingExperience}</p>
+                    <p>{driverProfile.drivingExperience || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
@@ -374,17 +382,17 @@ const Profile = () => {
                 <div className="info-card">
                   <label>Contact Name</label>
                   {editMode ? (
-                    <input value={editableProfile?.emergencyContactName || ''} onChange={(e) => handleFieldChange('emergencyContactName', e.target.value)} />
+                    <input type="text" placeholder="Emergency contact name" value={editableProfile?.emergencyContactName || ''} onChange={(e) => handleFieldChange('emergencyContactName', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.emergencyContactName}</p>
+                    <p>{driverProfile.emergencyContactName || 'Not provided'}</p>
                   )}
                 </div>
                 <div className="info-card">
                   <label>Contact Phone</label>
                   {editMode ? (
-                    <input value={editableProfile?.emergencyContactPhone || ''} onChange={(e) => handleFieldChange('emergencyContactPhone', e.target.value)} />
+                    <input type="tel" placeholder="+63 9XX XXX XXXX" value={editableProfile?.emergencyContactPhone || ''} onChange={(e) => handleFieldChange('emergencyContactPhone', e.target.value)} />
                   ) : (
-                    <p>{driverProfile.emergencyContactPhone}</p>
+                    <p>{driverProfile.emergencyContactPhone || 'Not provided'}</p>
                   )}
                 </div>
               </div>

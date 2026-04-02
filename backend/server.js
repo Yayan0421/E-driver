@@ -212,7 +212,9 @@ app.get('/profile', async (req, res) => {
     if (appData && appData.length > 0) {
       console.log('Found driver application for', email);
       const row = appData[0];
+      console.log('Raw driver application data:', JSON.stringify(row, null, 2));
       const camel = convertKeysToCamel(row);
+      console.log('Converted to camelCase:', JSON.stringify(camel, null, 2));
       return res.json(camel);
     }
 
@@ -231,7 +233,11 @@ app.get('/profile', async (req, res) => {
     if (userData && userData.length > 0) {
       console.log('Found user profile for', email);
       const row = userData[0];
+      console.log('Raw user data:', JSON.stringify(row, null, 2));
       const camel = convertKeysToCamel(row);
+      console.log('Converted to camelCase:', JSON.stringify(camel, null, 2));
+      
+      // If coming from users table, return basic data (ask user to complete driver app)
       return res.json(camel);
     }
 
