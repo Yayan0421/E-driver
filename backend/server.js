@@ -276,11 +276,11 @@ app.get('/profile', async (req, res) => {
   }
 });
 
-// PUT profile - update driver application (matched by email)
+// PUT profile - update driver data in both driver_applications and users tables
 app.put('/profile', async (req, res) => {
   const payload = req.body || {};
   const email = payload.email;
-  console.log('PUT /profile for', email);
+  console.log('PUT /profile for', email, 'with data:', Object.keys(payload));
   if (!supabase) return res.status(500).json({ error: 'Supabase not configured' });
   if (!email) return res.status(400).json({ error: 'Missing email in payload' });
 
@@ -300,6 +300,7 @@ app.put('/profile', async (req, res) => {
     // remove id if present
     delete updateObj.id;
 
+    // Try to update driver_applications
     const { data, error } = await supabase
       .from('driver_applications')
       .update(updateObj)
@@ -308,11 +309,39 @@ app.put('/profile', async (req, res) => {
       .limit(1);
 
     if (error) {
-      console.error('Supabase update error (profile):', error);
+      console.error('Supabase update error (driver_applications):', error);
       return res.status(500).json({ error: 'Database update error' });
     }
 
-    const updated = data && data[0] ? convertKeysToCamel(data[0]) : updateObj;
+    // Also update users table so profile always loads with latest data
+    const userUpdateObj = {
+      full_name: payload.fullName,
+      phone: payload.phone,
+      address: payload.address,
+      date_of_birth: payload.dateOfBirth,
+      vehicle_type: payload.vehicleType,
+      vehicle_brand: payload.vehicleBrand,
+      vehicle_model: payload.vehicleModel,
+      license_plate: payload.licensePlate,
+      license_number: payload.licenseNumber,
+      updated_at: new Date().toISOString()
+    };
+
+    // Remove undefined values
+    Object.keys(userUpdateObj).forEach(key => userUpdateObj[key] === undefined && delete userUpdateObj[key]);
+
+    const { error: userError } = await supabase
+      .from('users')
+      .update(userUpdateObj)
+      .eq('email', email);
+
+    if (userError) {
+      console.warn('Warning: Could not update users table:', userError);
+    } else {
+      console.log('Successfully synced profile updates to users table');
+    }
+
+    const updated = data && data[0] ? convertKeysToCamel(data[0]) : payload;
     return res.json(updated);
   } catch (err) {
     console.error('Profile update error:', err);

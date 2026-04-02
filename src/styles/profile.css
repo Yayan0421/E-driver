@@ -47,6 +47,38 @@
   margin: 0;
 }
 
+/* Save Message */
+.save-message {
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  animation: slideDown 0.3s ease-out;
+}
+
+.save-message.success {
+  background-color: #d1fae5;
+  border: 1px solid #6ee7b7;
+  color: #047857;
+}
+
+.save-message.error {
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Profile Top Section - Selfie and Basic Info */
 .profile-top {
   display: flex;

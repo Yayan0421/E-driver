@@ -14,6 +14,7 @@ const Profile = () => {
   const [activeSection, setActiveSection] = useState('personal');
   const [editMode, setEditMode] = useState(false);
   const [editableProfile, setEditableProfile] = useState(null);
+  const [saveMessage, setSaveMessage] = useState(null);
 
   useEffect(() => {
     // Load profile from backend
@@ -59,9 +60,12 @@ const Profile = () => {
           const res = await api.updateProfile(editableProfile);
           setDriverProfile(res || editableProfile);
           setEditMode(false);
+          setSaveMessage('Profile updated successfully!');
+          setTimeout(() => setSaveMessage(null), 3000);
         } catch (err) {
           console.error('Failed to save profile', err);
-          alert('Failed to save profile');
+          setSaveMessage('Failed to save profile. Please try again.');
+          setTimeout(() => setSaveMessage(null), 4000);
         }
       })();
     }
@@ -128,6 +132,13 @@ const Profile = () => {
             <h1>My Profile</h1>
             <p>Driver Application Details</p>
           </div>
+
+          {/* Save Message */}
+          {saveMessage && (
+            <div className={`save-message ${saveMessage.includes('success') ? 'success' : 'error'}`}>
+              {saveMessage}
+            </div>
+          )}
 
           {/* Selfie and Basic Info */}
           <div className="profile-top">
