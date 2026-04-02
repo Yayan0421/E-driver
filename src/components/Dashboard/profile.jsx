@@ -74,6 +74,20 @@ const Profile = () => {
   if (loading) {
     return (
       <div className="dashboard-container">
+        {/* Mobile Header with Hamburger */}
+        <div className="dashboard-mobile-header">
+          <button className="dashboard-hamburger" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+            ☰
+          </button>
+          <h2 style={{ margin: 0, fontSize: '1.1rem', color: '#111827', flex: 1, marginLeft: '0.5rem' }}>Profile</h2>
+        </div>
+
+        {/* Mobile Overlay */}
+        <div 
+          className={`sidebar-overlay ${isSidebarOpen ? 'active' : ''}`}
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+
         <SideNavbar 
           userName={userName} 
           userRole={userRole}
@@ -95,6 +109,20 @@ const Profile = () => {
   if (!driverProfile || error) {
     return (
       <div className="dashboard-container">
+        {/* Mobile Header with Hamburger */}
+        <div className="dashboard-mobile-header">
+          <button className="dashboard-hamburger" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+            ☰
+          </button>
+          <h2 style={{ margin: 0, fontSize: '1.1rem', color: '#111827', flex: 1, marginLeft: '0.5rem' }}>Profile</h2>
+        </div>
+
+        {/* Mobile Overlay */}
+        <div 
+          className={`sidebar-overlay ${isSidebarOpen ? 'active' : ''}`}
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+
         <SideNavbar 
           userName={userName} 
           userRole={userRole}
@@ -118,6 +146,20 @@ const Profile = () => {
 
   return (
     <div className="dashboard-container">
+      {/* Mobile Header with Hamburger */}
+      <div className="dashboard-mobile-header">
+        <button className="dashboard-hamburger" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+          ☰
+        </button>
+        <h2 style={{ margin: 0, fontSize: '1.1rem', color: '#111827', flex: 1, marginLeft: '0.5rem' }}>Profile</h2>
+      </div>
+
+      {/* Mobile Overlay */}
+      <div 
+        className={`sidebar-overlay ${isSidebarOpen ? 'active' : ''}`}
+        onClick={() => setIsSidebarOpen(false)}
+      ></div>
+
       <SideNavbar 
         userName={userName} 
         userRole={userRole}
