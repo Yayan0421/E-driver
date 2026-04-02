@@ -522,6 +522,20 @@
 }
 
 @media (max-width: 480px) {
+  .rides-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .rides-wrapper.sidebar-open {
+    margin-left: 0 !important;
+  }
+
+  .rides-wrapper.sidebar-collapsed {
+    margin-left: 0 !important;
+  }
+
+  .rides-container {
   .rides-container {
     padding: 0.75rem;
   }

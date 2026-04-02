@@ -533,7 +533,12 @@
 
 @media (max-width: 480px) {
   .main-content {
-    margin-left: 0;
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .dashboard-container.sidebar-open .main-content {
+    margin-left: 0 !important;
   }
 
   .content-wrapper {

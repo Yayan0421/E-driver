@@ -319,20 +319,181 @@
 
 @media (max-width: 768px) {
   .sidenavbar-container {
-    width: 350px;
+    width: 280px;
     position: fixed;
-    left: -350px;
+    left: -280px;
     transition: left 0.3s ease;
     z-index: 1000;
+    height: 100vh;
+    top: 0;
   }
 
   .sidenavbar-container.open {
     left: 0;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
   }
 
   .sidenavbar-container.collapsed {
-    width: 120px;
+    width: 280px;
     left: 0;
+  }
+
+  .sidenavbar-menu {
+    padding: 1.5rem 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .menu-item {
+    padding: 1rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .menu-icon {
+    min-width: 30px;
+    font-size: 1.2rem;
+  }
+
+  .sidenavbar-user {
+    padding: 1rem;
+  }
+
+  .user-profile {
+    gap: 0.75rem;
+  }
+
+  .user-avatar {
+    width: 45px;
+    height: 45px;
+  }
+
+  .user-name {
+    font-size: 0.9rem;
+  }
+
+  .user-email {
+    font-size: 0.7rem;
+  }
+
+  .logout-btn {
+    font-size: 0.9rem;
+    padding: 0.65rem 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidenavbar-container {
+    width: 70vw;
+    left: -100vw;
+    position: fixed;
+    z-index: 1000;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    transition: all 0.3s ease;
+  }
+
+  .sidenavbar-container.open {
+    left: 0;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  }
+
+  .sidenavbar-header {
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .logo-section {
+    gap: 0.5rem;
+  }
+
+  .logo-circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .logo-text {
+    font-size: 1.2rem;
+  }
+
+  .collapse-btn {
+    font-size: 1.2rem;
+    min-width: 35px;
+    min-height: 35px;
+  }
+
+  .sidenavbar-menu {
+    padding: 1rem 0.5rem;
+  }
+
+  .menu-item {
+    padding: 0.9rem 0.9rem;
+    font-size: 0.9rem;
+    gap: 0.75rem;
+  }
+
+  .menu-title {
+    font-size: 0.85rem;
+  }
+
+  .menu-icon {
+    font-size: 1.1rem;
+  }
+
+  .sidenavbar-user {
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+
+  .user-profile {
+    gap: 0.5rem;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 0.8rem;
+  }
+
+  .user-name {
+    font-size: 0.85rem;
+  }
+
+  .user-email {
+    font-size: 0.65rem;
+  }
+
+  .logout-btn {
+    font-size: 0.85rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  /* Hide title on mobile */
+  .sidenavbar-container .logo-text {
+    display: none;
+  }
+
+  .sidenavbar-container .collapse-btn {
+    display: none;
+  }
+
+  /* Compact menu on mobile */
+  .menu-item:not(.active) .menu-title {
+    display: none;
+  }
+
+  .sidenavbar-menu {
+    padding: 1rem 0.5rem;
+    gap: 0.75rem;
+  }
+
+  .menu-item {
+    padding: 0.75rem;
+    justify-content: center;
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .sidenavbar-user .user-profile {
+    display: none;
   }
 }
 

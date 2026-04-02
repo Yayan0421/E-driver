@@ -471,6 +471,14 @@
 }
 
 @media (max-width: 480px) {
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .dashboard-container.sidebar-open .main-content {
+    margin-left: 0 !important;
+  }
   .transaction-container {
     padding: 0.75rem;
   }

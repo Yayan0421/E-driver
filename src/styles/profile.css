@@ -420,6 +420,20 @@
 }
 
 @media (max-width: 480px) {
+  .profile-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .profile-wrapper.sidebar-open {
+    margin-left: 0 !important;
+  }
+
+  .profile-wrapper.sidebar-collapsed {
+    margin-left: 0 !important;
+  }
+
+  .profile-container {
   .profile-container {
     padding: 0.75rem;
   }
