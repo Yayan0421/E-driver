@@ -112,6 +112,12 @@ const SideNavbar = ({ userName, userRole = 'Driver', isOpen = true, onToggle = (
             key={item.id}
             to={item.path}
             className={`menu-item ${isActive(item.path) ? 'active' : ''}`}
+            onClick={() => {
+              // Close sidebar on mobile after clicking a menu item
+              if (window.innerWidth < 768 && isOpen) {
+                onToggle();
+              }
+            }}
           >
             <span className="menu-icon">{item.icon}</span>
             <span className="menu-title">{item.title}</span>
