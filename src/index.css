@@ -5,12 +5,18 @@
 @import "tailwindcss";
 
 /* Global Styles */
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   width: 100%;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Smooth scroll for anchor navigation */
@@ -26,5 +32,189 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Ranade-Bold', sans-serif;
   font-weight: 900;
+}
+
+/* Mobile Viewport Optimization */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  h6 {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    line-height: 1.6;
+    margin: 0.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Mobile-friendly buttons - minimum 44px touch target */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem 1rem !important;
+  }
+
+  /* Mobile-friendly form inputs */
+  input,
+  textarea,
+  select {
+    min-height: 44px;
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    padding: 0.75rem !important;
+  }
+
+  /* Improve spacing on small screens */
+  .dashboard-container,
+  .profile-wrapper,
+  .container {
+    padding: 1rem !important;
+  }
+
+  /* Make tables scrollable on mobile */
+  table {
+    font-size: 0.85rem;
+  }
+
+  /* Stack grid items on mobile */
+  .grid,
+  [class*="grid-"],
+  [role="grid"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Improve card layouts */
+  .card,
+  [class*="card-"],
+  .info-card,
+  .booking-card {
+    margin-bottom: 1rem;
+  }
+
+  /* Hide non-essential text on mobile */
+  .hidden-mobile,
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  /* Full width modals and dialogs */
+  .modal,
+  .dialog,
+  [role="dialog"] {
+    width: 95vw !important;
+    max-width: 95vw !important;
+  }
+}
+
+/* Touch-friendly elements */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a,
+  input[type="button"],
+  input[type="submit"],
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="date"],
+  input[type="number"],
+  select,
+  textarea {
+    min-height: 44px;
+    font-size: 16px;
+  }
+}
+
+/* Prevent zoom on input focus (iOS) */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+  font-size: 16px;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Scrollbar styling for better mobile UX */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
